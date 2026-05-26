@@ -305,8 +305,8 @@
 </footer>
 
     <!-- Modals -->
-    <div id="modal-overlay" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
-        <div id="login-modal" class="bg-white p-6 rounded-xl w-full max-w-xs shadow-2xl hidden">
+    <div id="modal-overlay" onclick="closeModalsOutside(event)" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
+        <div id="login-modal" onclick="event.stopPropagation()" class="bg-white p-6 rounded-xl w-full max-w-xs shadow-2xl hidden">
             <h3 class="font-bold mb-4 text-slate-800">管理員身份驗證</h3>
             <input type="password" id="admin-pwd-input" class="w-full p-2 border rounded mb-4" placeholder="請輸入密碼">
             <div class="flex space-x-2">
@@ -489,6 +489,10 @@
             elements.modalOverlay.classList.add('hidden');
             Array.from(elements.modalOverlay.children).forEach(c => c.classList.add('hidden'));
         }
+
+function closeModalsOutside(event) {
+    closeModals();
+}
 
         function showModal(id) {
             elements.modalOverlay.classList.remove('hidden');
@@ -1173,6 +1177,12 @@ elements.printReportBtn.onclick = () => {
         };
 window.addEventListener("resize", () => {
     drawHazardsOnImage();
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModals();
+    }
 });
 
         initDB();
