@@ -491,7 +491,9 @@
         }
 
 function closeModalsOutside(event) {
-    closeModals();
+    if (event.target === elements.modalOverlay) {
+        closeModals();
+    }
 }
 
         function showModal(id) {
